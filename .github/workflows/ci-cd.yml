@@ -1,0 +1,22 @@
+name: Build and Run Exec Image
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-run:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Set up Docker
+      run: docker --version
+
+    - name: Build Docker Image
+      run: docker build -f Dockerfile.exec-image -t exec-runner .
+
+    - name: Run Docker Container
+      run: docker run exec-runner
